@@ -5,4 +5,4 @@
 </script>
 
 
-<div>Hello</div>
+<div>Select a username</div>
