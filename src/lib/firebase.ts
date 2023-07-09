@@ -1,7 +1,9 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import type { User } from "firebase/auth";
 import { getStorage } from "firebase/storage";
+import { writable } from "svelte/store";
 const firebaseConfig = {
   apiKey: "AIzaSyApXTfIO6xKsux6A4iQSC-H_u3d8s5lgII",
   authDomain: "unilink-d9520.firebaseapp.com",
@@ -17,3 +19,24 @@ export const app = initializeApp(firebaseConfig);
 export const db = getFirestore();
 export const auth = getAuth();
 export const storage = getStorage();
+
+/**
+ *@returns a store with current firebase user and implements unsubscription
+ */
+function userStore() {
+  let unsubscribe = (): void => {};
+  const { subscribe } = writable<User | null>(
+    auth?.currentUser ?? null,
+    (set) => {
+      unsubscribe = onAuthStateChanged(auth, (user) => {
+        set(user);
+      });
+      return () => unsubscribe();
+    }
+  );
+  return {
+    subscribe,
+  };
+}
+
+export const user = userStore();
