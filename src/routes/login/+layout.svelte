@@ -9,7 +9,7 @@
 </ul>
 
 <AnimatedRoute>
-<div class="card w-96 bg-base-100 shadow-xl">
+<div class="card w-96 bg-base-100 shadow-xl border-2   hover:border-white-1 hover:shadow-cyan-950 hover:scale-105 hover:skew-z-6 transition-all">
   <div class="card-body items-center text-center">
     <slot/>
   </div>
