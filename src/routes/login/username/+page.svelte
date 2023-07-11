@@ -1,8 +1,10 @@
 <script lang="ts">
-    import type { PageData } from './$types';
+    import AuthProtected from '$lib/components/AuthProtected.svelte';
+import type { PageData } from './$types';
     
     export let data: PageData;
 </script>
 
-
+<AuthProtected>
 <div>Select a username</div>
+</AuthProtected>
