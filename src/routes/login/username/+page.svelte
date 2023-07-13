@@ -64,10 +64,10 @@
 <AuthProtected>
   {#if $userData?.username}
     <div class="flex flex-row gap-2">
-      Hello, <p class="text-success">{$userData?.username}</p>
+      Hello, <p class="text-success">@{$userData?.username}</p>
     </div>
-    <p>Username can only be set once</p>
-    <button class="btn mt-2 btn-info">
+    <p class="text-sm">(Username can only be set once)</p>
+    <button class="btn mt-0.5 btn-info">
       <a href="/login/upload"> Upload Photo</a>
     </button>
   {:else}

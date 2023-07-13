@@ -44,7 +44,7 @@ function userStore() {
  * @returns subscription to docData
  */
 
-export function docStore<T>(path: string) {
+function docStore<T>(path: string) {
   let unsubscribe = (): void => {};
   const docRef = doc(db, path);
 
@@ -73,7 +73,7 @@ export const userData: Readable<userData | null> = derived(
   user,
   ($user, set) => {
     if ($user) {
-      return docStore(`users/${$user.uid}`).subscribe(set);
+      return docStore<userData>(`users/${$user.uid}`).subscribe(set);
     } else {
       set(null);
     }
