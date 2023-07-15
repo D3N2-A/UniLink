@@ -42,7 +42,7 @@
     batch.set(usernameRef, { uid: $user?.uid });
     batch.set(userRef, {
       username,
-      photoUrl: $user?.photoURL ?? null,
+      photoURL: $user?.photoURL ?? null,
       bio: "Hey There! I&apos;m using UniLink",
       links: [
         {

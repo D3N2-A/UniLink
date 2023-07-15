@@ -17,7 +17,7 @@
     const result = await uploadBytes(storageRef, file);
     const url = await getDownloadURL(result.ref);
 
-    await updateDoc(doc(db, "users", $user!.uid), { photoUrl: url });
+    await updateDoc(doc(db, "users", $user!.uid), { photoURL: url });
     uploading = false;
   }
 </script>
@@ -33,7 +33,7 @@
   <form class="flex flex-col gap-4 items-center">
     <div>
       <img
-        src={previewUrl ? previewUrl : $userData?.photoUrl ?? "/user.jpg"}
+        src={previewUrl ? previewUrl : $userData?.photoURL ?? "/user.jpg"}
         alt=""
         width="256"
         height="256"

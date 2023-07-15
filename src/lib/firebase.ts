@@ -63,7 +63,7 @@ function docStore<T>(path: string) {
 interface userData {
   uid: string;
   username: string;
-  photoUrl: string;
+  photoURL: string;
   bio: string;
   links: any[];
 }
