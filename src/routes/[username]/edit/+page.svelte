@@ -1,5 +1,116 @@
 <script lang="ts">
-  import type { PageData } from "./$types";
+  import { page } from "$app/stores";
+  import { db, userData, user } from "$lib/firebase";
+  import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+  import { writable } from "svelte/store";
+  const typesArray = [
+    "Twitter",
+    "Threads",
+    "Instagram",
+    "Facebook",
+    "YouTube",
+    "Reddit",
+    "Patreaon",
+    "Onlyfans",
+    "LinkedIn",
+    "GitHub",
+    "Custom",
+  ];
+  const formDefaults = {
+    icon: "Type",
+    title: "",
+    url: "",
+  };
+  const urlRegex =
+    /^(https?:\/\/)?([w]{3}\.)?([a-zA-Z0-9-]+\.){1,}([a-zA-Z]{2,})(\/[^\s]*)?$/;
 
-  export let data: PageData;
+  const formData = writable(formDefaults);
+  $: isTitleValid = $formData.title.length > 0 && $formData.title.length < 20;
+  $: isLinkValid = $formData.url.match(urlRegex);
+  $: isFormValid = isTitleValid && isLinkValid;
+  let showForm = false;
+  async function addLink() {
+    const docRef = doc(db, "users", $user!.uid);
+    await updateDoc(docRef, {
+      links: arrayUnion({ ...$formData, id: Date.now().toString() }),
+    });
+    formData.set({
+      icon: "",
+      title: "",
+      url: "",
+    });
+    showForm = false;
+  }
 </script>
+
+<main class="w-full flex flex-col gap-5 items-center justify-start">
+  {#if $userData?.username == $page.params.username}
+    <h1 class="text-2xl font-bold">Edit your profile</h1>
+    {#if showForm}
+      <form
+        on:submit|preventDefault={addLink}
+        class="bg-base-300 p-4 rounded-lg flex flex-col items-start gap-5"
+      >
+        <div class="join">
+          <select
+            bind:value={$formData.icon}
+            class="select select-bordered join-item"
+          >
+            <option disabled selected>Type</option>
+            {#each typesArray as type}
+              <option value={type}>{type}</option>
+            {/each}
+          </select>
+          <div>
+            <div>
+              <input
+                class="input input-bordered join-item"
+                placeholder="Title"
+                bind:value={$formData.title}
+              />
+            </div>
+          </div>
+          <div>
+            <div>
+              <input
+                bind:value={$formData.url}
+                class="input input-bordered join-item"
+                placeholder="https://"
+              />
+            </div>
+          </div>
+        </div>
+        {#if !isTitleValid}
+          <p class="text-sm text-error">
+            Title Must be between 0 and 20 characters long
+          </p>
+        {/if}
+        {#if !isLinkValid}
+          <p class="text-sm text-error">Link should be valid</p>
+        {/if}
+        {#if isFormValid}
+          <p class="text-sm text-success">Looks good!</p>
+        {/if}
+        <button
+          type="submit"
+          class="btn {isFormValid ? 'btn-success' : 'btn-disabled'}"
+          >Add Link</button
+        >
+        <button
+          class="btn btn-sm"
+          on:click={() => {
+            formData.set(formDefaults);
+            showForm = false;
+          }}>Cancel</button
+        >
+      </form>
+    {:else}
+      <button
+        class="btn"
+        on:click={() => {
+          showForm = true;
+        }}>Add Link</button
+      >
+    {/if}
+  {/if}
+</main>
