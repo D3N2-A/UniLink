@@ -2,6 +2,7 @@
   export let title: string;
   export let icon: string;
   export let url: string;
+  export let id: any;
 </script>
 
 <a

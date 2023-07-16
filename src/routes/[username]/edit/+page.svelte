@@ -1,8 +1,12 @@
 <script lang="ts">
   import { page } from "$app/stores";
+  import SortableList from "$lib/components/SortableList.svelte";
+  import UniLink from "$lib/components/UniLink.svelte";
   import { db, userData, user } from "$lib/firebase";
   import { arrayUnion, doc, updateDoc } from "firebase/firestore";
+  import { flip } from "svelte/animate";
   import { writable } from "svelte/store";
+  import { fly } from "svelte/transition";
   const typesArray = [
     "Twitter",
     "Threads",
@@ -10,7 +14,7 @@
     "Facebook",
     "YouTube",
     "Reddit",
-    "Patreaon",
+    "Patreon",
     "Onlyfans",
     "LinkedIn",
     "GitHub",
@@ -46,6 +50,9 @@
 <main class="w-full flex flex-col gap-5 items-center justify-start">
   {#if $userData?.username == $page.params.username}
     <h1 class="text-2xl font-bold">Edit your profile</h1>
+    <SortableList list={$userData.links} let:item let:index>
+      <UniLink {...item} />
+    </SortableList>
     {#if showForm}
       <form
         on:submit|preventDefault={addLink}
