@@ -58,7 +58,7 @@
           >
             <option disabled selected>Type</option>
             {#each typesArray as type}
-              <option value={type}>{type}</option>
+              <option value={type.toLowerCase()}>{type}</option>
             {/each}
           </select>
           <div>
