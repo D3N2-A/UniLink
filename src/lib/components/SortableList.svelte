@@ -1,9 +1,10 @@
 <script lang="ts">
+  import { createEventDispatcher } from "svelte";
   import { flip } from "svelte/animate";
 
   export let list: any[];
   let isOver: string | boolean = false;
-
+  const dispcatch = createEventDispatcher();
   //Had to check recursiverly because if we drag by clicking on image its parent will be a tag so still it wont have dataset
   function getDraggedParent(node: any) {
     if (!node.dataset.index) {
@@ -47,6 +48,7 @@
     console.log(from, to);
     let newList = [...list];
     [newList[from], newList[to]] = [newList[to], newList[from]];
+    dispcatch("sort", newList);
   }
 </script>
 
