@@ -53,4 +53,7 @@
         : 'file-input-info'} w-full max-w-xs"
     />
   </form>
+  <button class="btn mt-2 btn-info">
+    <a href={`/${$userData?.username}`}> Finish </a>
+  </button>
 </AuthProtected>
