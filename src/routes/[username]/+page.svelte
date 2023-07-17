@@ -27,7 +27,7 @@
   <div class="w-full">
     <ul class="w-full flex flex-col gap-3 mt-4">
       {#each data.links as link}
-        <li>
+        <li class="hover:scale-105 transition-all">
           <UniLink {...link} />
         </li>
       {/each}

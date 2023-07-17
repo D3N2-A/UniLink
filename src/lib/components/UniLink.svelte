@@ -7,7 +7,7 @@
 
 <a
   href={url}
-  class="flex flex-row w-full justify-start items-center p-4 rounded-lg gap-5 bg-base-300 hover:scale-105 transition-all no-underline"
+  class="flex flex-row w-full justify-start items-center p-4 rounded-lg gap-5 bg-base-300 transition-all no-underline"
   target="_blank"
 >
   <img src={`/${icon}.svg`} alt={icon} width="32" height="32" />
