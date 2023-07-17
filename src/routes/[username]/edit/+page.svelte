@@ -163,7 +163,7 @@
       </form>
     {:else}
       <button
-        class="btn"
+        class="btn-outline btn btn-info"
         on:click={() => {
           showForm = true;
         }}>Add Link</button
