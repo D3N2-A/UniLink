@@ -66,6 +66,7 @@ interface userData {
   photoURL: string;
   bio: string;
   links: any[];
+  published: boolean;
 }
 
 export const user = userStore();

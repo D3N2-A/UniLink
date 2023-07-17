@@ -51,6 +51,7 @@
           icon: "custom",
         },
       ],
+      published: true,
     });
 
     await batch.commit();

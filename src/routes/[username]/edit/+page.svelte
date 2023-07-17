@@ -52,11 +52,49 @@
     const userRef = doc(db, "users", $user!.uid);
     setDoc(userRef, { links: newList }, { merge: true });
   }
+  async function handlePublish(e: any) {
+    const userRef = doc(db, "users", $user!.uid);
+    if (e.target.checked) {
+      await updateDoc(userRef, { published: true });
+    } else {
+      await updateDoc(userRef, { published: false });
+    }
+  }
 </script>
 
 <main class="w-full flex flex-col gap-5 items-center justify-start">
   {#if $userData?.username == $page.params.username}
     <h1 class="text-2xl font-bold">Edit your profile</h1>
+    <a href="/login/upload" class=" flex flex-row group gap-1 relative">
+      <div class="avatar online">
+        <div class="w-24 rounded-full">
+          <img alt="userProfile" src={$userData.photoURL} />
+        </div>
+      </div>
+      <p
+        class="absolute invisible bottom-0 rounded-lg backdrop-blur-md group-hover:visible underline-offset-2 text-[10px] overflow-visible decoration-white decoration-slice w-full"
+      >
+        Change Profile Photo
+      </p></a
+    >
+    <div>
+      <div
+        class="tooltip"
+        data-tip="Once Published your profile will be visible to everyone "
+      >
+        <div class="form-control w-52">
+          <label class="cursor-pointer label">
+            <span class="label-text text-md font-bold">Public Profile</span>
+            <input
+              type="checkbox"
+              class="toggle toggle-accent"
+              on:change={handlePublish}
+              checked={$userData.published}
+            />
+          </label>
+        </div>
+      </div>
+    </div>
     <SortableList
       list={$userData.links}
       on:sort={sortUpdatedList}
