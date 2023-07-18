@@ -95,6 +95,9 @@
         </div>
       </div>
     </div>
+    <a href={`/${$userData.username}/bio`}>
+      <button class="btn btn-xs btn-outline">Edit Bio</button>
+    </a>
     <SortableList
       list={$userData.links}
       on:sort={sortUpdatedList}
