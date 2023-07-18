@@ -30,7 +30,7 @@
   async function submitUsername() {
     loading = true;
 
-    if (username === "" || isValid) {
+    if (username.length < 1 || !isValid) {
       return;
     }
 
@@ -100,6 +100,7 @@
         <p class="mt-4 text-warning">Username is invalid</p>
       {/if}
       <button
+        type="submit"
         class:btn-success={isAvailable && isValid}
         class="btn mt-2 {loading && username !== '' ? 'btn-disabled' : ''}"
       >
