@@ -23,7 +23,7 @@
     isOver = dragged?.id ?? false;
   }
 
-  //For this section we have to considor whether we are droping on valid element or not.
+  //For this section we have to consider whether we are droping on valid element or not.
   function onDragLeave(e: DragEvent) {
     // @ts-ignore
     const dragged = getDraggedParent(e.target);
@@ -57,7 +57,7 @@
     <ul class="w-full flex flex-col gap-3 mt-4">
       {#each list as item, index (item?.id)}
         <li
-          class="border-2 border-dashed border-transparent"
+          class="border-2 border-dashed border-transparent hover:scale-105 hover:border-gray-400 transition-all"
           data-index={index}
           data-id={item?.id}
           class:over={item.id === isOver}

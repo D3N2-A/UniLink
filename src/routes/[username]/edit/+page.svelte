@@ -104,7 +104,13 @@
       let:item
       let:index
     >
-      <UniLink {...item} />
+      <div class="group relative">
+        <UniLink {...item} />
+        <button
+          class="btn btn-xs btn-error invisible group-hover:visible transition-all absolute -right-6 bottom-10"
+          >Delete</button
+        >
+      </div>
     </SortableList>
     {#if showForm}
       <form
